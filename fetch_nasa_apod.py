@@ -16,18 +16,18 @@ def fetch_nasa_apod(count, nasa_api):
         if apod["media_type"] == "image":
             url = apod["url"]
             ext = get_file_ext(url)
-            filename = os.path.join("Nasa_apod_images", f"nasa_apod_{number}{ext}")
+            filename = os.path.join("Images", f"nasa_apod_{number}{ext}")
             load_picture(url, filename)
 
 
 if __name__ == "__main__":
-    os.makedirs("Nasa_apod_images")
+    os.makedirs("Images", exist_ok=True)
     nasa_api = os.environ['NASA_API']
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-c",
         "--count",
-        default=30,
+        default=40,
     )
     args = parser.parse_args()
 
