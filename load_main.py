@@ -3,11 +3,13 @@ from urllib.parse import urlparse
 
 import requests
 
+
 def load_picture(url, filename, params=None):
 	response = requests.get(url, params=params)
 	response.raise_for_status()
 	with open(filename, "wb") as file:
 		file.write(response.content)
+
 
 def get_file_ext(url):
 	path = urlparse(url).path
