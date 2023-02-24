@@ -22,12 +22,12 @@ def fetch_nasa_epic(nasa_api):
             f'/{date.strftime("%Y/%m/%d")}/png/{image_name}.png'
         )
 
-        filename = os.path.join("Nasa_epic_images", f"nasa_epic_{number}.jpeg")
+        filename = os.path.join("Images", f"nasa_epic_{number}.jpeg")
         load_picture(image_url, filename, params)
 
 
 if __name__ == "__main__":
-    os.makedirs("Nasa_epic_images")
+    os.makedirs("Images", exist_ok=True)
     nasa_api = os.environ["NASA_API"]
     parser = argparse.ArgumentParser()
     parser.parse_args()
