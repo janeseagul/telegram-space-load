@@ -1,21 +1,18 @@
-import argparse
 import os
+import argparse
 import random
 import time
 
-from telegram.error import NetworkError
+from load_main import send_photos
 
-from send_images import send_photo
-
-if __name__ == "__main__":
-    token = os.environ['BOT_TOKEN']
-    chat_id = os.environ['CHAT_ID']
+if __name__ == '__main__':
+    bot_api_key = os.environ['BOT_API_KEY']
+    chat_id = os.environ['TG_CHAT_ID']
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-i",
-        "--images_dir_path",
-        help="путь к директории с фотографиями",
-        default="Images",
+        "--images_path",
+        default="images",
     )
     parser.add_argument(
         "-s",
@@ -26,17 +23,14 @@ if __name__ == "__main__":
     args = parser.parse_args()
     sleep_time = args.sleep_time * 3600
 
-    images_folders = []
-    for address, dirs, files in os.walk(args.images_dir_path):
+    images_paths = []
+
+    for address, dirs, files in os.walk(args.images_path):
         for name in files:
-            images_folders.append(os.path.join(address, name))
+            images_paths.append(os.path.join(address, name))
 
     while True:
-        try:
-            for images_folder in images_folders:
-                send_photo(images_folder, chat_id, token)
-                time.sleep(sleep_time)
-            random.shuffle(images_folders)
-        except NetworkError:
-            print("Нет соединения.")
-            time.sleep(2)
+        for images_path in images_paths:
+            send_photos(bot_api_key, chat_id, images_path)
+            time.sleep(sleep_time)
+        random.shuffle(images_paths)
