@@ -1,26 +1,28 @@
 import argparse
 import os
+import random
 
-import telegram
-
-
-def send_photo(images_folders, chat_id, token):
-    bot = telegram.Bot(token=token)
-    with open(images_folders, "rb") as image:
-        bot.send_photo(chat_id=chat_id, photo=image)
+from load_main import send_photos
 
 
-if __name__ == "__main__":
-    token = os.environ['BOT_TOKEN']
+def send_photo(bot_api_key, chat_id, file):
+    if file:
+        photo = file
+    else:
+        *__, last_photos = list(os.walk('Images'))
+        *__, photos = last_photos
+        photo = os.path.join('Images', random.choice(photos))
+    send_photos(bot_api_key, chat_id, photo)
+
+
+def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-i",
-        "--images_folder"
-    )
-    parser.add_argument(
-        "-id",
-        "--chat_id",
-	)
+    parser.add_argument("-f", "--file", default=None)
     args = parser.parse_args()
+    chat_id = os.environ['TG_CHAT_ID']
+    bot_api_key = os.environ['BOT_API_KEY']
+    send_photo(bot_api_key, chat_id, args.file)
 
-    send_photo_to_chat(args.images_folder, args.chat_id, token)
+
+if __name__ == '__main__':
+    main()
