@@ -3,13 +3,12 @@ import datetime
 import os
 
 import requests
-from dotenv import load_dotenv
 
 from load_main import load_picture
 
 
-def fetch_nasa_epic(nasa_api):
-    params = {"api_key": nasa_api}
+def fetch_nasa_epic(nasa_api_key):
+    params = {"api_key": nasa_api_key}
     response = requests.get(
         "https://api.nasa.gov/EPIC/api/natural/images", params=params
     )
@@ -22,14 +21,14 @@ def fetch_nasa_epic(nasa_api):
             f'/{date.strftime("%Y/%m/%d")}/png/{image_name}.png'
         )
 
-        filename = os.path.join("Images", f"nasa_epic_{number}.jpeg")
-        load_picture(image_url, filename, params)
+        filepath = os.path.join("Images", f"nasa_epic_{number}.jpeg")
+        load_picture(image_url, filepath, params)
 
 
 if __name__ == "__main__":
     os.makedirs("Images", exist_ok=True)
-    nasa_api = os.environ["NASA_API"]
+    nasa_api_key = os.environ["NASA_API"]
     parser = argparse.ArgumentParser()
     parser.parse_args()
 
-    fetch_nasa_epic(nasa_api)
+    fetch_nasa_epic(nasa_api_key)
