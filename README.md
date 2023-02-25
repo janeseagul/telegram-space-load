@@ -7,7 +7,9 @@ Python 3 должен быть уже установлен.
 ```
 pip install -r requirements.txt
 ```
-Создайте файл .env в корневом каталоге со следующими переменными:
+Скачайте репозиторий.
+
+Создайте файл .env в корневом каталоге репозитория со следующими переменными:
 ```
 NASA API=<nasa_api>
 BOT_TOKEN=<bot_token>
@@ -18,7 +20,7 @@ CHAT_ID=<chat_id>
 Для получения `BOT_TOKEN` необходимо создать бота в Telegram, обратившись к [@BotFather](https://telegram.me/BotFather).
 [Инструкция к BotFather](https://botcreators.ru/blog/botfather-instrukciya/)
 
-`CHAT-ID` - ссылка на telegram-канал в формате `@<название_канала`
+`CHAT-ID` - ссылка на telegram-канал в формате `@<название_канала>`
 
 Для корректной работы скрипта созданный бот должен быть администратором вашего telegram-канала.
 
@@ -36,3 +38,44 @@ CHAT_ID=<chat_id>
 ```bash
 $python main_script.py -i Images -s 2
 ```
+### Вспомогательные скрипты
+1. `fetch_nasa_apod.py` загружает фотографии с сайта [APOD NASA](https://api.nasa.gov/planetary/apod). Требует на вход `NASA_API`. По умолчанию загружает фотографии в директорию `Images` (при отстутсвии директории создает ее).
+   Запускается из терминала вашей IDE или командной строки.
+  
+   Аргументы скрипта: 
+  ```-c, --count ``` - количество загружаемых фотографий. По умолчанию - 40 шт.
+ 
+   Пример запуска скрипта:
+   ```bash
+   $python fetch_nasa_apod.py --count 15
+   ```
+2. `fetch_nasa_epic.py` загружает фотографии Земли через [APIC NASA](https://api.nasa.gov/EPIC/api/natural/images). Требует `NASA_API`. 
+   Запускается из терминала вашей IDE или командной строки.
+   
+   Пример запуска:
+   ```bash
+   $python fetch_nasa_epic.py
+   ```
+3. `fetch_spacex_photos.py` загружает фотографии с запуска SpaseX через [SpaseX](https://api.spacexdata.com/v5/launches). Требует `NASA_API`. 
+   Запускается из терминала вашей IDE или командной строки.
+ 
+   Аргументы скрипта:
+   `-i`, `--launch_id` - id запуска SpaseX. По умолчанию `latest` (последний). 
+   
+   Пример запуска:
+   ```bash
+   $python fetch_spacex_photos.py -i 5eb87d47ffd86e000604b38a
+
+4. `send_images.py` - загружает одну фотографию в telegram-канал. Требует `BOT_TOKEN`.
+   Запускается из терминала вашей IDE или командной строки.
+ 
+   Аргументы скрипта: 
+ 
+   `-i`, `-image_folder` - директория с фотографиями.
+ 
+   `-id`, `chat-id` - ссылка на telegtam-канал в формате `@<название_канала>`. 
+ 
+   Пример запуска:
+   ```bash
+   $python send_images.py -i Images -id @my_chat
+ 
