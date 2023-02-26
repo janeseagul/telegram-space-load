@@ -11,9 +11,9 @@ pip install -r requirements.txt
 
 Создайте файл .env в корневом каталоге репозитория со следующими переменными:
 ```
-NASA API=<nasa_api>
-BOT_TOKEN=<bot_token>
-CHAT_ID=<chat_id>
+NASA_API_KEY=<nasa_api>
+BOT_API_KEY=<bot_token>
+TG_CHAT_ID=<chat_id>
 ```
 Чтобы получить `NASA_KEY`, нужно сгенерировать API-key на сайте [API.NASA](https://api.nasa.gov/)
 
