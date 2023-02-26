@@ -15,8 +15,9 @@ def fetch_nasa_apod(count, nasa_api_key):
         filepath = os.path.join("Images", f"nasa_apod_{number}{ext}")
         try:
             load_picture(url, filepath)
-        except KeyError:
-            print ("Невозможно загрузить изображение.")
+        except requests.exceptions.HTTPError as error:
+            logging.error("Невозможно загрузить изображение nasa apod:\n{0}".format(error))
+
 
 
 if __name__ == "__main__":
@@ -26,8 +27,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "-c",
         "--count",
-        help='Количество фотографий, которые нужно загрузить, по умолчанию - 40 шт.'
-        default=40
+        help='Количество фотографий, которые нужно загрузить, по умолчанию - 40 шт.',
+        default=40,
     )
     args = parser.parse_args()
 
