@@ -11,16 +11,16 @@ pip install -r requirements.txt
 
 Создайте файл .env в корневом каталоге репозитория со следующими переменными:
 ```
-NASA API=<nasa_api>
-BOT_TOKEN=<bot_token>
-CHAT_ID=<chat_id>
+NASA_API_KEY=<nasa_api>
+BOT_API_KEY=<bot_token>
+TG_CHAT_ID=<chat_id>
 ```
-Чтобы получить `NASA_API`, нужно сгенерировать API-key на сайте [API.NASA](https://api.nasa.gov/)
+Чтобы получить `NASA_KEY`, нужно сгенерировать API-key на сайте [API.NASA](https://api.nasa.gov/)
 
-Для получения `BOT_TOKEN` необходимо создать бота в Telegram, обратившись к [@BotFather](https://telegram.me/BotFather).
+Для получения `BOT_API_KEY` необходимо создать бота в Telegram, обратившись к [@BotFather](https://telegram.me/BotFather).
 [Инструкция к BotFather](https://botcreators.ru/blog/botfather-instrukciya/)
 
-`CHAT-ID` - ссылка на telegram-канал в формате `@<название_канала>`
+`TG_CHAT_ID` - ссылка на telegram-канал в формате `@<название_канала>`
 
 Для корректной работы скрипта созданный бот должен быть администратором вашего telegram-канала.
 
