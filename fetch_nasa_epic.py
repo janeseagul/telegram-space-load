@@ -1,4 +1,3 @@
-import argparse
 import datetime
 import os
 
@@ -27,8 +26,6 @@ def fetch_nasa_epic(nasa_api_key):
 
 if __name__ == "__main__":
     os.makedirs("Images", exist_ok=True)
-    nasa_api_key = os.environ["NASA_API"]
-    parser = argparse.ArgumentParser()
-    parser.parse_args()
+    nasa_api_key = os.environ['NASA_KEY']
 
     fetch_nasa_epic(nasa_api_key)

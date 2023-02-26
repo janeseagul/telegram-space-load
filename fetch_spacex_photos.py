@@ -16,11 +16,12 @@ def fetch_spacex_photos(launch_id):
 
 if __name__ == "__main__":
     os.makedirs("Images", exist_ok=True)
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='Загрузка фотографий с запусков SpaceX')
     parser.add_argument(
         "-i",
         "--launch_id",
-        default="latest",
+        help='Id запуска SpaceX, для которого нужно загрузить фотографии'
+        default="latest"
     )
     args = parser.parse_args()
 

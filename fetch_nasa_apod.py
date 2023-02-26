@@ -10,21 +10,24 @@ def fetch_nasa_apod(count, nasa_api_key):
     response = requests.get("https://api.nasa.gov/planetary/apod", params=params)
     response.raise_for_status()
     for number, apod in enumerate(response.json()):
-        if apod["media_type"] == "image":
-            url = apod["url"]
-            ext = get_file_ext(url)
-            filepath = os.path.join("Images", f"nasa_apod_{number}{ext}")
+        url = apod["url"]
+        ext = get_file_ext(url)
+        filepath = os.path.join("Images", f"nasa_apod_{number}{ext}")
+        try:
             load_picture(url, filepath)
+        except KeyError:
+            print ("Невозможно загрузить изображение.")
 
 
 if __name__ == "__main__":
     os.makedirs("Images", exist_ok=True)
-    nasa_api_key = os.environ['NASA_API']
-    parser = argparse.ArgumentParser()
+    nasa_api_key = os.environ['NASA_KEY']
+    parser = argparse.ArgumentParser(description='Загрузка изображений космоса')
     parser.add_argument(
         "-c",
         "--count",
-        default=40,
+        help='Количество фотографий, которые нужно загрузить, по умолчанию - 40 шт.'
+        default=40
     )
     args = parser.parse_args()
 
